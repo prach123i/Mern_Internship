@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Employee</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #4CAF50;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    button {
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="file"] {
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    input::placeholder {
+      color: #888;
+    }
+
+    .form-footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 20px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Edit Employee</h2>
+    <form action="/employee/edit/<%= employee._id %>" method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" value="<%= employee.name %>" placeholder="Name" required />
+      <input type="email" name="email" value="<%= employee.email %>" placeholder="Email" required />
+      <input type="text" name="mobile" value="<%= employee.mobile %>" placeholder="Mobile" required />
+      <input type="text" name="designation" value="<%= employee.designation %>" placeholder="Designation" required />
+      <input type="text" name="gender" value="<%= employee.gender %>" placeholder="Gender" required />
+      <input type="text" name="course" value="<%= employee.course %>" placeholder="Course" required />
+      
+      <!-- Image upload -->
+      <input type="file" name="img" />
+
+      <!-- Submit button -->
+      <button type="submit">Update Employee</button>
+    </form>
+
+    <div class="form-footer">
+      <p>&copy; 2024 Your Company Name</p>
+    </div>
+  </div>
+
+</body>
+</html>
