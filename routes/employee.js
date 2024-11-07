@@ -4,34 +4,30 @@ const Employee = require("../models/employee");
 
 const router = express.Router();
 
-// Set up Multer for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "public/uploads/"),
   filename: (req, file, cb) => cb(null, Date.now() + "_" + file.originalname),
 });
 const upload = multer({ storage });
 
-// Create Employee route (GET)
 router.get("/create-employee", (req, res) => {
-    res.render("create-employee"); // Render the create-employee page if logged in
+    res.render("create-employee"); 
   });
   
-// Create Employee route (POST)
 router.post("/create", upload.single("img"), async (req, res) => {
   const { name, email, mobile, designation, gender, course } = req.body;
-  const img = req.file ? req.file.filename : "";  // Check if there's a file uploaded
+  const img = req.file ? req.file.filename : "";  
 
   const newEmployee = new Employee({ name, email, mobile, designation, gender, course, img });
   try {
     await newEmployee.save();
-    res.redirect("/employee/list");  // Redirect after creating employee
+    res.redirect("/employee/list");  
   } catch (err) {
     console.log("Error creating employee:", err);
     res.status(500).send("Error creating employee");
   }
 });
 
-// Get Employee list route
 router.get("/list", async (req, res) => {
   try {
     const employees = await Employee.find();
@@ -42,7 +38,6 @@ router.get("/list", async (req, res) => {
   }
 });
 
-// Edit Employee route (GET)
 router.get("/edit/:id", async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);
@@ -55,7 +50,6 @@ router.get("/edit/:id", async (req, res) => {
   }
 });
 
-// Edit Employee route (POST)
 router.post("/edit/:id", upload.single("img"), async (req, res) => {
   const { name, email, mobile, designation, gender, course } = req.body;
   const img = req.file ? req.file.filename : undefined;
@@ -71,7 +65,6 @@ router.post("/edit/:id", upload.single("img"), async (req, res) => {
   }
 });
 
-// Delete Employee route
 router.get("/delete/:id", async (req, res) => {
   try {
     await Employee.findByIdAndDelete(req.params.id);
@@ -82,15 +75,14 @@ router.get("/delete/:id", async (req, res) => {
   }
 });
 
-// Dashboard route
+
 router.get('/dashboard', (req, res) => {
-    if (!req.session.user) {  // Check if the user is logged in
-      return res.redirect('/login');  // Redirect to the login page if not logged in
+    if (!req.session.user) {  
+      return res.redirect('/login');  
     }
   
-    // Render the dashboard page
     res.render('dashboard', {
-      user: req.session.user, // Pass user data to the template
+      user: req.session.user, 
     });
 });
 

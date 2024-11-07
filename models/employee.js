@@ -7,7 +7,7 @@ const employeeSchema = new mongoose.Schema({
   designation: String,
   gender: String,
   course: String,
-  img: String,  // for storing the image filename
+  img: String,
   createDate: { type: Date, default: Date.now },
 });
 
